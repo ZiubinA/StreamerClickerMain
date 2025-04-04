@@ -9,6 +9,7 @@ public class UpgradeSystem : MonoBehaviour
     public Button cameraUpgradeButton;
     public Button notebookUpgradeButton;
     public Button micUpgradeButton;
+    public Button closeButton;
     public Button upgradeFurnitureButton;  // Button for upgrading furniture
     public TextMeshProUGUI cameraCostText;
     public TextMeshProUGUI notebookCostText;
@@ -34,7 +35,7 @@ public class UpgradeSystem : MonoBehaviour
         notebookUpgradeButton.onClick.AddListener(UpgradeNotebook);
         micUpgradeButton.onClick.AddListener(UpgradeMicrophone);
         upgradeFurnitureButton.onClick.AddListener(ToggleUpgradePanel);  // Add listener for furniture upgrade button
-
+        closeButton.onClick.AddListener(CloseUpgradePanel);     // Add listener for closing the panel
         // Update the cost text on start
         UpdateCostTexts();
     }
@@ -49,9 +50,11 @@ public class UpgradeSystem : MonoBehaviour
     // Hide the upgrade panel when the player closes it (can be done by adding a close button)
     public void CloseUpgradePanel()
     {
+        Debug.Log("CloseUpgradePanel clicked");
         upgradePanel.SetActive(false);
         isPanelOpen = false;
     }
+
 
     // Toggle the upgrade panel when the "Upgrade Furniture" button is pressed
     void ToggleUpgradePanel()

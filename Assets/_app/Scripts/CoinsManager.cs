@@ -20,7 +20,7 @@ public class CoinManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))  // Detect left mouse click
         {
-            AddCoins(1f);  // Add coins per click (1 coin per click)
+            AddCoins(playerData.clickValue);  // Add coins per click (1 coin per click)
         }
     }
 
