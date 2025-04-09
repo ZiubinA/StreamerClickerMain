@@ -1,7 +1,10 @@
 [System.Serializable]
 public class PlayerData
 {
-    public int coins;        // Coins the player has
-    public float clickValue; // Coins earned per click
-    public int buttonCost;   // Cost of the next upgrade
+    public int coins;
+    public float clickValue;
+    public int cameraCost; 
+    public int notebookCost;  
+    public int micCost;  
+    public int buttonCost;  
 }
