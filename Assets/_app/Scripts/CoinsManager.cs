@@ -4,10 +4,10 @@ using System.IO;
 
 public class CoinManager : MonoBehaviour
 {
-    public TextMeshProUGUI coinLabel;  // Reference to the TextMeshPro component (UI Text)
-    public PlayerData playerData;      // Reference to the PlayerData to hold coin information
+    public TextMeshProUGUI coinLabel;  // Reference to the UI Text (coin label)
+    public PlayerData playerData;     // Reference to the PlayerData to hold coin information
 
-    private string filePath;
+    private string filePath;          // File path for saving player data
 
     void Start()
     {
@@ -20,7 +20,7 @@ public class CoinManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))  // Detect left mouse click
         {
-            AddCoins(1f);  // Add coins per click (1 coin per click)
+            AddCoins(playerData.clickValue);  // Add coins per click (1 coin per click)
         }
     }
 
@@ -33,8 +33,37 @@ public class CoinManager : MonoBehaviour
 
     public void UpdateCoinLabel()
     {
-        coinLabel.text = "Coins: " + playerData.coins;  // Update the TextMeshPro UI element
+        coinLabel.text = FormatNumber(playerData.coins);  // Update the TextMeshPro UI element
     }
+
+    string FormatNumber(long number)
+    {
+        if (number >= 1_000_000_000_000_000) // 1 Quadrillion
+        {
+            return (number / 1_000_000_000_000_000f).ToString("0.0") + "Q"; // "1.5Q"
+        }
+        else if (number >= 1_000_000_000_000) // 1 Trillion
+        {
+            return (number / 1_000_000_000_000f).ToString("0.0") + "T"; // "1.5T"
+        }
+        else if (number >= 1_000_000_000) // 1 Billion
+        {
+            return (number / 1_000_000_000f).ToString("0.0") + "B"; // "1.5B"
+        }
+        else if (number >= 1_000_000) // 1 Million
+        {
+            return (number / 1_000_000f).ToString("0.0") + "M"; // "1.5M"
+        }
+        else if (number >= 1_000) // 1 Thousand
+        {
+            return (number / 1_000f).ToString("0.0") + "K"; // "1.5K"
+        }
+        else
+        {
+            return number.ToString(); // For smaller numbers, just return the number as it is
+        }
+    }
+
 
     public void SavePlayerData()
     {
@@ -52,7 +81,7 @@ public class CoinManager : MonoBehaviour
         else
         {
             // Initialize with default values if no file exists
-            playerData = new PlayerData { coins = 0, clickValue = 1f, buttonCost = 100 };
+            playerData = new PlayerData { coins = 0, clickValue = 1f, buttonCost = 100, cameraCost = 200, notebookCost = 200, micCost = 200 };
         }
     }
 }

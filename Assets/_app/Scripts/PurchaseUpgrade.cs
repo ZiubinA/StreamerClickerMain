@@ -23,7 +23,7 @@ public class PurchaseUpgrade : MonoBehaviour
             // Deduct the cost and update the click value
             coinManager.playerData.coins -= coinManager.playerData.buttonCost;
             coinManager.playerData.clickValue *= 1.5f;  // Increase the click value by 15%
-            coinManager.playerData.buttonCost += 50;   // Increase the button cost by 50 coins
+            coinManager.playerData.buttonCost += 1000;   // Increase the button cost by 50 coins
 
             coinManager.UpdateCoinLabel();  // Update the coin label
             coinManager.SavePlayerData();  // Save the updated player data
