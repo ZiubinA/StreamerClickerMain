@@ -314,7 +314,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!223 &76755544
 Canvas:
   m_ObjectHideFlags: 0
@@ -1683,16 +1683,19 @@ MonoBehaviour:
   resetButton: {fileID: 979042020}
   yesButton: {fileID: 471765717}
   noButton: {fileID: 798354435}
+  upgradeFurnitureButton: {fileID: 2107206463}
+  upgradeLevelButton: {fileID: 1178488120}
+  cameraUpgradeButton: {fileID: 1375358968}
+  cameraButtonText: {fileID: 0}
+  laptopUpgradeButton: {fileID: 0}
+  laptopButtonText: {fileID: 0}
+  microphoneUpgradeButton: {fileID: 0}
+  microphoneButtonText: {fileID: 0}
   confirmationPanel: {fileID: 867818958}
   upgradePanel: {fileID: 1829485700}
-  cameraUpgradeButton: {fileID: 1375358968}
-  notebookUpgradeButton: {fileID: 1472419450}
-  micUpgradeButton: {fileID: 1899449951}
-  upgradeFurnitureButton: {fileID: 2107206463}
-  cameraCostText: {fileID: 1728843949}
-  notebookCostText: {fileID: 483241489}
-  micCostText: {fileID: 540425748}
-  upgradeLevelButton: {fileID: 1178488120}
+  feedbackTextPrefab: {fileID: 0}
+  feedbackParent: {fileID: 0}
+  feedbackDuration: 2
 --- !u!1 &867818958
 GameObject:
   m_ObjectHideFlags: 0
@@ -2468,6 +2471,7 @@ GameObject:
   - component: {fileID: 1558418324}
   - component: {fileID: 1558418326}
   - component: {fileID: 1558418325}
+  - component: {fileID: 1558418327}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2516,13 +2520,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinLabel: {fileID: 412910041}
+  clickValueLabel: {fileID: 0}
   playerData:
     coins: 0
+    baseClickValue: 1
+    upgrades: []
     clickValue: 0
-    cameraCost: 0
-    notebookCost: 0
-    micCost: 0
-    buttonCost: 0
+--- !u!114 &1558418327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1558418322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: def6f2dfa9a54904c8ec38e79117550d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resetButton: {fileID: 979042020}
+  yesButton: {fileID: 471765717}
+  noButton: {fileID: 798354435}
+  upgradeFurnitureButton: {fileID: 2107206463}
+  upgradeLevelButton: {fileID: 1178488120}
+  cameraUpgradeButton: {fileID: 1375358968}
+  cameraButtonText: {fileID: 0}
+  laptopUpgradeButton: {fileID: 1472419450}
+  laptopButtonText: {fileID: 0}
+  microphoneUpgradeButton: {fileID: 1899449951}
+  microphoneButtonText: {fileID: 0}
+  confirmationPanel: {fileID: 0}
+  upgradePanel: {fileID: 0}
+  feedbackTextPrefab: {fileID: 0}
+  feedbackParent: {fileID: 0}
+  feedbackDuration: 1.5
 --- !u!1 &1728843947
 GameObject:
   m_ObjectHideFlags: 0
@@ -3001,6 +3032,7 @@ GameObject:
   - component: {fileID: 2033900917}
   - component: {fileID: 2033900919}
   - component: {fileID: 2033900918}
+  - component: {fileID: 2033900920}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -3065,6 +3097,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2033900916}
   m_CullTransparentMesh: 1
+--- !u!114 &2033900920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033900916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1558418326}
+          m_TargetAssemblyTypeName: CoinManager, Assembly-CSharp
+          m_MethodName: OnImageClicked
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &2107206461
 GameObject:
   m_ObjectHideFlags: 0
