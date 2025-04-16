@@ -4,188 +4,242 @@ using UnityEngine.UI;
 
 public class UpgradeSystem : MonoBehaviour
 {
-    public Button resetButton;  // Button that triggers reset
-    public Button yesButton;    // Button that confirms the reset
-    public Button noButton;     // Button that cancels the reset
-    public GameObject confirmationPanel;  // Panel asking for confirmation
-    public GameObject upgradePanel;  // The panel containing the upgrade buttons
+    // UI Buttons
+    public Button resetButton;
+    public Button yesButton;
+    public Button noButton;
+    public Button upgradeFurnitureButton;
+    public Button upgradeLevelButton;
+
+    // Specific upgrade buttons with their text components
     public Button cameraUpgradeButton;
-    public Button notebookUpgradeButton;
-    public Button micUpgradeButton;
-    public Button upgradeFurnitureButton;  // Button for upgrading furniture
-    public TextMeshProUGUI cameraCostText;
-    public TextMeshProUGUI notebookCostText;
-    public TextMeshProUGUI micCostText;
-    public Button upgradeLevelButton;  // Button for upgrading level
+    public TextMeshProUGUI cameraButtonText;
+
+    public Button laptopUpgradeButton;
+    public TextMeshProUGUI laptopButtonText;
+
+    public Button microphoneUpgradeButton;
+    public TextMeshProUGUI microphoneButtonText;
+
+    // UI Panels
+    public GameObject confirmationPanel;
+    public GameObject upgradePanel;
+
+    // Feedback text for purchases
+    public GameObject feedbackTextPrefab;
+    public Transform feedbackParent;
+    public float feedbackDuration = 1.5f;
 
     private CoinManager coinManager;
-
-    // Default upgrade costs
-    private int defaultCameraCost = 200;
-    private int defaultUpgradeLevelButton = 250;
-    private int defaultNotebookCost = 200;
-    private int defaultMicCost = 50;
-
-    // Track the current upgrade costs
-    private int cameraCost;
-    private int notebookCost;
-    private int micCost;
-
-    private float clickMultiplier = 10f;
-
-    private bool isPanelOpen = false;  // Track if the panel is open or closed
+    private bool isPanelOpen = false;
 
     void Start()
     {
-        coinManager = FindObjectOfType<CoinManager>();  // Find the CoinManager script
-        upgradePanel.SetActive(false);  // Hide the upgrade panel initially
-        confirmationPanel.SetActive(false);  // Hide confirmation panel initially
+        coinManager = FindObjectOfType<CoinManager>();
 
-        // Add listeners to buttons
-        cameraUpgradeButton.onClick.AddListener(UpgradeCamera);
-        notebookUpgradeButton.onClick.AddListener(UpgradeNotebook);
-        micUpgradeButton.onClick.AddListener(UpgradeMicrophone);
-        upgradeFurnitureButton.onClick.AddListener(ToggleUpgradePanel);
+        // Hide panels initially
+        if (confirmationPanel != null)
+            confirmationPanel.SetActive(false);
+        if (upgradePanel != null)
+            upgradePanel.SetActive(false);
 
-        // Add listener for the reset button to show the confirmation panel
-        resetButton.onClick.AddListener(ShowConfirmationPanel);
+        // If text components weren't assigned, try to find them in children
+        if (cameraButtonText == null && cameraUpgradeButton != null)
+            cameraButtonText = cameraUpgradeButton.GetComponentInChildren<TextMeshProUGUI>();
+        if (laptopButtonText == null && laptopUpgradeButton != null)
+            laptopButtonText = laptopUpgradeButton.GetComponentInChildren<TextMeshProUGUI>();
+        if (microphoneButtonText == null && microphoneUpgradeButton != null)
+            microphoneButtonText = microphoneUpgradeButton.GetComponentInChildren<TextMeshProUGUI>();
 
-        // Add listeners for the confirmation buttons
-        yesButton.onClick.AddListener(ResetProgress);
-        noButton.onClick.AddListener(CloseConfirmationPanel);
+        // Add button listeners
+        if (cameraUpgradeButton != null)
+            cameraUpgradeButton.onClick.AddListener(UpgradeCamera);
+        if (laptopUpgradeButton != null)
+            laptopUpgradeButton.onClick.AddListener(UpgradeLaptop);
+        if (microphoneUpgradeButton != null)
+            microphoneUpgradeButton.onClick.AddListener(UpgradeMicrophone);
 
-        // Load costs and player data at the start
-        LoadPlayerData();
-        UpdateCostTexts();
+        if (resetButton != null)
+            resetButton.onClick.AddListener(ShowConfirmationPanel);
+        if (yesButton != null)
+            yesButton.onClick.AddListener(ResetProgress);
+        if (noButton != null)
+            noButton.onClick.AddListener(CloseConfirmationPanel);
+        if (upgradeFurnitureButton != null)
+            upgradeFurnitureButton.onClick.AddListener(ToggleUpgradePanel);
+
+        // Update the UI with current prices
+        UpdateUpgradeButtonTexts();
     }
 
-    // Load player data (including costs)
-    void LoadPlayerData()
+    // Update button texts to show current prices
+    public void UpdateUpgradeButtonTexts()
     {
-        if (coinManager.playerData != null)
+        UpgradeData cameraUpgrade = coinManager?.playerData.GetUpgrade("camera");
+        UpgradeData laptopUpgrade = coinManager?.playerData.GetUpgrade("notebook"); // Note: ID is "notebook" not "laptop"
+        UpgradeData microphoneUpgrade = coinManager?.playerData.GetUpgrade("microphone");
+
+        if (cameraUpgrade != null && cameraButtonText != null)
+            cameraButtonText.text = $"Camera: {cameraUpgrade.currentCost}";
+
+        if (laptopUpgrade != null && laptopButtonText != null)
+            laptopButtonText.text = $"Laptop: {laptopUpgrade.currentCost}";
+
+        if (microphoneUpgrade != null && microphoneButtonText != null)
+            microphoneButtonText.text = $"Microphone: {microphoneUpgrade.currentCost}";
+    }
+
+    // Camera upgrade function
+    void UpgradeCamera()
+    {
+        PurchaseUpgrade("camera", cameraUpgradeButton.transform.position);
+    }
+
+    // Laptop upgrade function
+    void UpgradeLaptop()
+    {
+        PurchaseUpgrade("notebook", laptopUpgradeButton.transform.position); // Note: ID is "notebook"
+    }
+
+    // Microphone upgrade function
+    void UpgradeMicrophone()
+    {
+        PurchaseUpgrade("microphone", microphoneUpgradeButton.transform.position);
+    }
+
+    // Common purchase logic
+    void PurchaseUpgrade(string upgradeId, Vector3 buttonPosition)
+    {
+        if (coinManager == null)
+            return;
+
+        UpgradeData upgrade = coinManager.playerData.GetUpgrade(upgradeId);
+
+        if (upgrade == null)
+            return;
+
+        if (coinManager.playerData.coins >= upgrade.currentCost)
         {
-            // Load the saved upgrade costs or default to initial values
-            cameraCost = coinManager.playerData.cameraCost != 0 ? coinManager.playerData.cameraCost : defaultCameraCost;
-            notebookCost = coinManager.playerData.notebookCost != 0 ? coinManager.playerData.notebookCost : defaultNotebookCost;
-            micCost = coinManager.playerData.micCost != 0 ? coinManager.playerData.micCost : defaultMicCost;
+            // Successful purchase
+            coinManager.playerData.coins -= upgrade.currentCost;
+            upgrade.LevelUp();
+            coinManager.playerData.CalculateClickValue();
+
+            // Update UI
+            UpdateUpgradeButtonTexts();
+            coinManager.UpdateUI();
+            coinManager.SavePlayerData();
+
+            // Show success feedback
+            ShowFeedbackMessage("Upgraded!", Color.green, buttonPosition);
         }
         else
         {
-            // Initialize if player data is not set
-            cameraCost = defaultCameraCost;
-            notebookCost = defaultNotebookCost;
-            micCost = defaultMicCost;
+            // Not enough coins
+            ShowFeedbackMessage("Not enough coins!", Color.red, buttonPosition);
         }
     }
 
-    // Show the confirmation panel
-    void ShowConfirmationPanel()
+    // Show feedback message
+    void ShowFeedbackMessage(string message, Color color, Vector3 position)
     {
-        confirmationPanel.SetActive(true);  // Show the panel
+        if (feedbackTextPrefab == null)
+            return;
+
+        GameObject feedbackObj = Instantiate(feedbackTextPrefab, position, Quaternion.identity,
+                                           feedbackParent != null ? feedbackParent : transform);
+
+        TextMeshProUGUI textComponent = feedbackObj.GetComponent<TextMeshProUGUI>();
+
+        if (textComponent != null)
+        {
+            textComponent.text = message;
+            textComponent.color = color;
+
+            // Animate the feedback text (optional)
+            StartCoroutine(AnimateFeedbackText(feedbackObj, textComponent));
+
+            // Destroy after duration
+            Destroy(feedbackObj, feedbackDuration);
+        }
     }
 
-    // Close the confirmation panel without resetting
-    void CloseConfirmationPanel()
+    // Animation for feedback text (similar to your ClickFeedback)
+    System.Collections.IEnumerator AnimateFeedbackText(GameObject feedbackObj, TextMeshProUGUI textComponent)
     {
-        confirmationPanel.SetActive(false);  // Hide the confirmation panel
+        float timer = 0f;
+        Vector3 startPosition = feedbackObj.transform.position;
+        Color originalColor = textComponent.color;
+
+        while (timer < feedbackDuration)
+        {
+            timer += Time.deltaTime;
+            float progress = timer / feedbackDuration;
+
+            // Fade out gradually
+            textComponent.color = new Color(originalColor.r, originalColor.g, originalColor.b,
+                                         1 - progress);
+
+            // Move upward
+            feedbackObj.transform.position = startPosition + new Vector3(0, progress * 30f, 0);
+
+            yield return null;
+        }
     }
 
-    // Toggle the upgrade panel when the "Upgrade Furniture" button is pressed
+    // Toggle upgrade panel visibility
     void ToggleUpgradePanel()
     {
         if (isPanelOpen)
-        {
             CloseUpgradePanel();
-        }
         else
-        {
             OpenUpgradePanel();
+    }
+
+    // Open upgrade panel
+    void OpenUpgradePanel()
+    {
+        if (upgradePanel != null)
+        {
+            upgradePanel.SetActive(true);
+            isPanelOpen = true;
+            UpdateUpgradeButtonTexts(); // Update the prices when opening panel
         }
     }
 
-    // Open the upgrade panel
-    void OpenUpgradePanel()
+    // Close upgrade panel
+    void CloseUpgradePanel()
     {
-        upgradePanel.SetActive(true);  // Make the panel visible
-        isPanelOpen = true;  // Mark the panel as open
+        if (upgradePanel != null)
+        {
+            upgradePanel.SetActive(false);
+            isPanelOpen = false;
+        }
+    }
+
+    // Show confirmation panel for reset
+    void ShowConfirmationPanel()
+    {
+        if (confirmationPanel != null)
+            confirmationPanel.SetActive(true);
+    }
+
+    // Close confirmation panel
+    void CloseConfirmationPanel()
+    {
+        if (confirmationPanel != null)
+            confirmationPanel.SetActive(false);
     }
 
     // Reset all progress
     void ResetProgress()
     {
-        // Reset player data (coins, upgrades, etc.)
-        coinManager.playerData.coins = 0;  // Reset coins
-        coinManager.playerData.clickValue = 1f;  // Reset click value
-        cameraCost = defaultCameraCost;  // Reset to default costs
-        notebookCost = defaultNotebookCost;  // Reset to default costs
-        coinManager.playerData.buttonCost = defaultUpgradeLevelButton;
-        micCost = defaultMicCost;  // Reset to default costs
-        UpdateCostTexts();  // Update UI with reset values
-
-        coinManager.SavePlayerData();  // Save the reset data
-        coinManager.UpdateCoinLabel();  // Update the coin label in the UI
-
-        CloseUpgradePanel();  // Close the upgrade panel if it's open
-        CloseConfirmationPanel();  // Close the confirmation panel
-    }
-
-    // Hide the upgrade panel when the player closes it
-    public void CloseUpgradePanel()
-    {
-        upgradePanel.SetActive(false);
-        isPanelOpen = false;
-    }
-
-    // Upgrade the camera if the player has enough coins
-    void UpgradeCamera()
-    {
-        if (coinManager.playerData.coins >= cameraCost)
+        if (coinManager != null)
         {
-            coinManager.playerData.coins -= cameraCost;
-            coinManager.playerData.clickValue *= clickMultiplier;
-            cameraCost *= 2;  // Double the cost for the next upgrade
-            coinManager.playerData.cameraCost = cameraCost;  // Save the updated cost
-            UpdateCostTexts();
-            coinManager.SavePlayerData();
-            coinManager.UpdateCoinLabel();
+            coinManager.ResetPlayerData();
+            UpdateUpgradeButtonTexts();
+            CloseConfirmationPanel();
+            CloseUpgradePanel();
         }
-    }
-
-    // Upgrade the notebook if the player has enough coins
-    void UpgradeNotebook()
-    {
-        if (coinManager.playerData.coins >= notebookCost)
-        {
-            coinManager.playerData.coins -= notebookCost;
-            coinManager.playerData.clickValue *= clickMultiplier;
-            notebookCost *= 2;  // Double the cost for the next upgrade
-            coinManager.playerData.notebookCost = notebookCost;  // Save the updated cost
-            UpdateCostTexts();
-            coinManager.UpdateCoinLabel();
-            coinManager.SavePlayerData();
-        }
-    }
-
-    // Upgrade the microphone if the player has enough coins
-    void UpgradeMicrophone()
-    {
-        if (coinManager.playerData.coins >= micCost)
-        {
-            coinManager.playerData.coins -= micCost;
-            coinManager.playerData.clickValue *= clickMultiplier;
-            micCost *= 2;  // Double the cost for the next upgrade
-            coinManager.playerData.micCost = micCost;  // Save the updated cost
-            UpdateCostTexts();
-            coinManager.SavePlayerData();
-            coinManager.UpdateCoinLabel();
-        }
-    }
-
-    // Update the cost texts displayed on the buttons
-    void UpdateCostTexts()
-    {
-        cameraCostText.text = "Camera:" + cameraCost;
-        notebookCostText.text = "Laptop:" + notebookCost;
-        micCostText.text = "Micro:" + micCost;
     }
 }

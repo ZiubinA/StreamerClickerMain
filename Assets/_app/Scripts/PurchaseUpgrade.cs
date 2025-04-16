@@ -18,12 +18,18 @@ public class PurchaseUpgrade : MonoBehaviour
     // Method to handle purchasing the upgrade
     private void BuyUpgrade()
     {
-        if (coinManager.playerData.coins >= coinManager.playerData.buttonCost)  // Check if the player has enough coins
+        UpgradeData clickUpgrade = coinManager.playerData.GetUpgrade("click_upgrade");
+
+        if (clickUpgrade != null && coinManager.playerData.coins >= clickUpgrade.currentCost)
         {
-            // Deduct the cost and update the click value
-            coinManager.playerData.coins -= coinManager.playerData.buttonCost;
-            coinManager.playerData.clickValue *= 1.5f;  // Increase the click value by 15%
-            coinManager.playerData.buttonCost += 1000;   // Increase the button cost by 50 coins
+            // Deduct the cost
+            coinManager.playerData.coins -= clickUpgrade.currentCost;
+
+            // Level up the upgrade
+            clickUpgrade.LevelUp();
+
+            // Recalculate click value
+            coinManager.playerData.CalculateClickValue();
 
             coinManager.UpdateCoinLabel();  // Update the coin label
             coinManager.SavePlayerData();  // Save the updated player data
