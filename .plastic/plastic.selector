@@ -1,4 +1,0 @@
-repository "StreamerClickerMain/StreamerClickerMain@20067445341358@cloud"
-  path "/"
-    br "/main"
-    co "/main"
