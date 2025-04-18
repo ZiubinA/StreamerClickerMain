@@ -6,6 +6,7 @@ public class PlayerData
 {
     // Basic player stats
     public int coins = 0;
+    public int diamonds = 0;
     public float baseClickValue = 1f;
 
     // Dictionary can't be serialized by Unity's JsonUtility
