@@ -3283,7 +3283,7 @@ GameObject:
   - component: {fileID: 1958328080}
   - component: {fileID: 1958328079}
   m_Layer: 5
-  m_Name: ClaimButton
+  m_Name: ClaimButton1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
