@@ -3183,9 +3183,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1567690648}
-  m_Father: {fileID: 1792718846}
+  m_Children: []
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3204,8 +3203,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97fe557db061e4f46836830b0954310a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rewardPanel: {fileID: 1792718845}
-  rewardText: {fileID: 1600238573}
+  rewardPanel: {fileID: 0}
+  rewardText: {fileID: 0}
   coinManager: {fileID: 1558418326}
   rewardAmount: 100
 --- !u!114 &1958328080
@@ -3252,7 +3251,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1558418328}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: DailyRewardManager, Assembly-CSharp
         m_MethodName: ClaimReward
         m_Mode: 1
@@ -3670,7 +3669,8 @@ SceneRoots:
   - {fileID: 659811543}
   - {fileID: 519420032}
   - {fileID: 76755545}
-  - {fileID: 1558418324}
   - {fileID: 536306867}
+  - {fileID: 1558418324}
   - {fileID: 826941424}
   - {fileID: 1606699653}
+  - {fileID: 1958328078}
