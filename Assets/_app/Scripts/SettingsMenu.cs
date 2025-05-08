@@ -4,6 +4,8 @@ using TMPro;
 
 public class SettingsMenu : MonoBehaviour
 {
+    public AudioSource musicSource;
+    public AudioSource[] sfxSources;
     [Header("Settings Panel")]
     public GameObject settingsPanel;
 
@@ -58,9 +60,12 @@ public class SettingsMenu : MonoBehaviour
 
     private void ApplyAudioSettings()
     {
-        // Example: controlling master volume for music and SFX
-        // You can expand this with actual AudioSource management if needed
-        AudioListener.volume = (musicToggle.isOn || sfxToggle.isOn) ? 1f : 0f;
+        if (musicSource != null)
+            musicSource.mute = !musicToggle.isOn;
+
+        // Add similar logic if you want to control SFX separately
+        foreach (var sfx in sfxSources)
+            sfx.mute = !sfxToggle.isOn;
     }
 
     private void OnLanguageChanged(int index)
