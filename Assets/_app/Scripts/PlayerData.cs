@@ -16,6 +16,8 @@ public class PlayerData
     // Final computed click value 
     public float clickValue = 1f;
 
+    public float passiveIncomePerSec = 1f;   // coins generated each second
+    public long lastQuitTicks = 0;    // used for offline payout
     // Calculate the final click value based on all upgrades
     public void CalculateClickValue()
     {
@@ -41,6 +43,25 @@ public class PlayerData
     public UpgradeData GetUpgrade(string upgradeId)
     {
         return upgrades.Find(u => u.id == upgradeId);
+    }
+
+    public void RecalculatePassiveIncome()
+    {
+        float additiveSum = 1f;   // base income everyone gets
+        float multiplicativeTotal = 1f;   // neutral multiplier
+
+        foreach (var up in upgrades)
+        {
+            if (up.id == "sponsor" || up.id.StartsWith("passive_"))
+            {
+                if (up.isAdditive)
+                    additiveSum += up.currentValue;          // +X coins/sec
+                else
+                    multiplicativeTotal *= (1f + up.currentValue); // +Y %
+            }
+        }
+
+        passiveIncomePerSec = additiveSum * multiplicativeTotal;
     }
 
     // Add a new upgrade type
@@ -115,6 +136,43 @@ public class PlayerData
                 baseCost = 100,
                 currentCost = 100,
                 costMultiplier = 1.4f
+            });
+
+            //Passive income
+            upgrades.Add(new UpgradeData
+            {
+                id = "sponsor",
+                name = "Stream Sponsor",
+                description = "Generates coins every second",
+                isAdditive = true,        // we’ll treat this as +X coins/sec
+                baseValue = 2f,          // +2 coins/sec per level
+                currentValue = 0f,
+                level = 0,
+                baseCost = 500,
+                currentCost = 500,
+                costMultiplier = 1.7f
+            });
+
+            // Passive - additive
+            upgrades.Add(new UpgradeData
+            {
+                id = "passive_ad_break",
+                name = "Ad Break",
+                description = "Generates steady ad revenue",
+                isAdditive = true,
+                baseValue = 5f,      // +5 coins/sec each level
+                /* … costs … */
+            });
+
+            // Passive - multiplicative
+            upgrades.Add(new UpgradeData
+            {
+                id = "passive_merch_boost",
+                name = "Merch Boost %",
+                description = "Boosts all passive income",
+                isAdditive = false,   // multiplicative
+                baseValue = 0.25f,   // +25 % each level
+                /* … costs … */
             });
         }
     }
