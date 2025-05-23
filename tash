@@ -1,0 +1,60 @@
+[33mce78b73[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mSCRUM-40/In-Game-HUD-Improvements[m[33m, [m[1;31morigin/SCRUM-40/In-Game-HUD-Improvements[m[33m)[m Add close button functionality and fix panel interaction issues
+[33m95ddb33[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m Merge pull request #22 from ZiubinA/DaniilBulhakov/SCRUM-29/Optimize-sprites-and-settings-UI
+[33m9c7cc77[m My brilliant work on SCRUM-29
+[33m94495d9[m Merge pull request #21 from ZiubinA/Ihor/SCRUM-34/achievements
+[33m5182c0f[m SCRUM-34: Add Achievements system with UI
+[33ma5c4fd0[m Merge pull request #20 from ZiubinA/IncomeUpgrade
+[33mb7f4ca1[m Passive Update meow
+[33m6aaab71[m Merge pull request #19 from ZiubinA/addingshowbuttonagain
+[33medaa792[m Hook up Toast UI in Main scene
+[33mc8f86fd[m Merge pull request #18 from ZiubinA/Anton/SCRUM-18/Passive-Income
+[33m51e138c[m Passive Income
+[33m6336e35[m Merge pull request #17 from ZiubinA/SCRUM-23/in-game-hud-improvement
+[33mff1013a[m[33m ([m[1;31morigin/SCRUM-23/in-game-hud-improvement[m[33m, [m[1;32mSCRUM-23/in-game-hud-improvement[m[33m)[m Complete in-game HUD with coin/diamond icons and polished button visuals
+[33m7dc5cf9[m[33m ([m[1;32mSCRUM-21/coin-click-interface[m[33m)[m Merge pull request #16 from ZiubinA/SCRUM-21/coin-click-interface
+[33m22a8ebf[m Merge branch 'main' into SCRUM-21/coin-click-interface
+[33m3f658b1[m[33m ([m[1;31morigin/SCRUM-21/coin-click-interface[m[33m)[m Remove leftover PlasticSCM conflict files
+[33m7397545[m Merge pull request #15 from ZiubinA/Ihor/daily-reward-system
+[33mb3413b7[m[33m ([m[1;31morigin/Ihor/daily-reward-system[m[33m)[m Good Scene
+[33m953d1e7[m Merge pull request #14 from ZiubinA/ArseniiZiubin/SCRUM-36/pushNotification
+[33m3949361[m[33m ([m[1;31morigin/ArseniiZiubin/SCRUM-36/pushNotification[m[33m)[m added push notigication to the screen in game mode
+[33mbd59ae2[m created push notification which works only on android
+[33m7024a83[m[33m ([m[1;31morigin/revert-to-stable[m[33m)[m Merge pull request #12 from ZiubinA/Ihor/check
+[33m18102e8[m[33m ([m[1;31morigin/Ihor/check1[m[33m, [m[1;31morigin/Ihor/check[m[33m)[m Merge branch 'main' into Ihor/check
+[33m792c55f[m check
+[33m6c6064f[m[33m ([m[1;31morigin/stable[m[33m)[m Merge pull request #10 from ZiubinA/Anton/SCRUM-16/Sound
+[33mb72f900[m[33m ([m[1;31morigin/Anton/SCRUM-16/Sound[m[33m)[m Add .plastic to .gitignore, stop tracking generated Plastic SCM files
+[33m5fd932c[m Resolve merge conflicts with main (Plastic files + Main.unity)
+[33md31daaf[m SCRUM-16/Sound
+[33m78a6388[m[33m ([m[1;31morigin/AhmetBurkayOzbay/SCRUM-24/First-scene-of-the-game-AgainREUPLOADplsworknow[m[33m, [m[1;32mAhmetBurkayOzbay/SCRUM-24/First-scene-of-the-game-AgainREUPLOADplsworknow[m[33m)[m Plus one text and coin image
+[33m70c5ea0[m Merge pull request #9 from ZiubinA/DaniilBulhakov/SCRUM-42/settings-ui-v2
+[33me111e42[m Resolved merge conflict in Main.unity
+[33m0f9e15e[m Merge pull request #8 from ZiubinA/Ihor/SCRUM-33/daily-reward-system
+[33m704d188[m[33m ([m[1;31morigin/Ihor/SCRUM-33/daily-reward-system[m[33m)[m SCRUM-33: Daily Rewards System
+[33mb803657[m[33m ([m[1;31morigin/DaniilBulhakov/SCRUM-42/Design-of-the-buttons-Settings[m[33m)[m again suka im trying to push Setting update
+[33mab15d17[m Settings interface update button
+[33mdd5e6da[m Merge pull request #6 from ZiubinA/DaniilBulhakov/SCRUM-42/Design-of-the-buttons-Settings
+[33ma543733[m Add settings menu script (must be finished)
+[33mb8999a2[m merge branch 'main' of https://github.com/ZiubinA/StreamerClickerMain into Daniil/Store
+[33me1e1b52[m Merge pull request #5 from ZiubinA/TarasDemchyna/SCRUM-22/Powerup-System
+[33med5af91[m[33m ([m[1;31morigin/TarasDemchyna/SCRUM-22/Powerup-System[m[33m)[m First version logic of power up system implementation
+[33mfe91481[m Merge pull request #4 from ZiubinA/ArseniiZiubin/SCRUM-26/Load-Game-on-Start-and-Reset-Button
+[33m22718cc[m[33m ([m[1;31morigin/ArseniiZiubin/SCRUM-26/Load-Game-on-Start-and-Reset-Button[m[33m)[m Created and added ligic to reset button, Added saving of progress to uprade lvl button but still need to fix bug with camera, laptop, mic saving data it is not working
+[33mb4044fe[m[33m ([m[1;31morigin/AhmetBurkayOzbay/SCRUM-24/First-scene-of-the-game-AgainREUPLOAD[m[33m)[m Merge pull request #3 from ZiubinA/AhmetBurkayOzbay/SCRUM-24/First-scene-of-the-game
+[33mfe11357[m[33m ([m[1;31morigin/AhmetBurkayOzbay/SCRUM-24/First-scene-of-the-game-REUPLOAD[m[33m, [m[1;31morigin/AhmetBurkayOzbay/SCRUM-24/First-scene-of-the-game[m[33m)[m First scene created
+[33m8e19978[m[33m ([m[1;31morigin/Daniil/Store[m[33m)[m Added Unity .gitignore file
+[33m070cc60[m Merge pull request #2 from ZiubinA/AddedingButons
+[33m5988470[m[33m ([m[1;31morigin/AddedingButons[m[33m)[m added upgrade pannel with upgrades of camera, micro and laptop, need to implement close
+[33mddc7387[m Arsenii Added coins lable and upgrade button
+[33md6a93cd[m Merge pull request #1 from ZiubinA/dev-ArseniiTry2
+[33mcd6edc8[m[33m ([m[1;31morigin/dev-ArseniiTry2[m[33m)[m trying the pull request
+[33mc3ad6f0[m Added face assets
+[33mf23bf45[m Removed accidental file and added LoadingScene
+[33mc9c4912[m Update
+[33ma8f60bb[m added background picture
+[33m8e385c0[m added background picture
+[33m25d31a1[m Update Anton
+[33m56433d3[m Just check 2
+[33mc8d70c5[m Just check
+[33m46269bb[m Added modified Unity files and .plastic files
+[33m090e09f[m Initial commit
