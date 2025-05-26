@@ -33,12 +33,9 @@ public class UpgradeSystem : MonoBehaviour
     private CoinManager coinManager;
     private bool isPanelOpen = false;
 
-    private ApartmentManager apartmentManager;
-
     void Start()
     {
         coinManager = FindObjectOfType<CoinManager>();
-        apartmentManager = FindObjectOfType<ApartmentManager>();
 
         // Hide panels initially
         if (confirmationPanel != null)
@@ -240,15 +237,6 @@ public class UpgradeSystem : MonoBehaviour
         if (coinManager != null)
         {
             coinManager.ResetPlayerData();
-            // ADD THIS:
-            if (apartmentManager != null)
-            {
-                apartmentManager.ResetApartment();
-            }
-            else
-            {
-                Debug.LogError("ApartmentManager not found in UpgradeSystem!");
-            }
             UpdateUpgradeButtonTexts();
             CloseConfirmationPanel();
             CloseUpgradePanel();
