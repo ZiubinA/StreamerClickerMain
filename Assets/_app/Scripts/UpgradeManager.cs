@@ -24,8 +24,6 @@ public class UpgradeManager : MonoBehaviour
     public GameObject upgradeButtonPrefab;
     public Transform upgradeContainer;
 
-    public ApartmentManager apartmentManager;
-
     // Dictionary to store upgrade UI references
     private Dictionary<string, UpgradeButtonController> upgradeButtons = new Dictionary<string, UpgradeButtonController>();
     private bool isPanelOpen = false;
@@ -58,11 +56,6 @@ public class UpgradeManager : MonoBehaviour
 
         if (openUpgradesButton != null)
             openUpgradesButton.onClick.AddListener(ToggleUpgradePanel);
-
-        // Find the ApartmentManager if not assigned
-        if (apartmentManager == null)
-            apartmentManager = FindObjectOfType<ApartmentManager>();
-
 
         // Initialize upgrade buttons
         InitializeUpgradeButtons();
@@ -197,8 +190,6 @@ public class UpgradeManager : MonoBehaviour
     {
         // Reset player data
         coinManager.ResetPlayerData();
-
-        apartmentManager.ResetApartment();
 
         // Reinitialize all upgrade buttons
         InitializeUpgradeButtons();
