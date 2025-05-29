@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Upgrades Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: Upgrades
+  m_TableCollectionNameGuidString: f7df276cea41320438a8bf3f36253e28
+  m_Entries:
+  - m_Id: 322400313344
+    m_Key: upgrades.laptop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 395150516224
+    m_Key: upgrades.camera
+    m_Metadata:
+      m_Items: []
+  - m_Id: 418420514816
+    m_Key: upgrades.microphone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2831575572480
+    m_Key: coins.coins
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2858838548480
+    m_Key: coins.diamond
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 18081042282315814
+  references:
+    version: 2
+    RefIds:
+    - rid: 18081042282315814
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1748544314485

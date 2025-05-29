@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Localization.Settings;
 
 public class SettingsMenu : MonoBehaviour
 {
+    private readonly string[] localeCodes = { "en", "ru", "tr", "uk" };
     public AudioSource musicSource;
     public AudioSource[] sfxSources;
     [Header("Settings Panel")]
@@ -36,6 +38,10 @@ public class SettingsMenu : MonoBehaviour
         sfxToggle.onValueChanged.AddListener(OnSfxToggleChanged);
         languageDropdown.onValueChanged.AddListener(OnLanguageChanged);
         exitButton.onClick.AddListener(OnExitButtonClicked);
+        string savedLocale = PlayerPrefs.GetString("SelectedLocale", "en");
+        int savedIndex = System.Array.IndexOf(localeCodes, savedLocale);
+        if (savedIndex >= 0)
+            languageDropdown.value = savedIndex;
 
         // Hide panel initially
         settingsPanel.SetActive(false);
@@ -70,8 +76,16 @@ public class SettingsMenu : MonoBehaviour
 
     private void OnLanguageChanged(int index)
     {
-        // TODO: Integrate with localization system
-        Debug.Log($"Language changed to index: {index}");
+        if (index >= 0 && index < localeCodes.Length)
+        {
+            var locale = LocalizationSettings.AvailableLocales.GetLocale(localeCodes[index]);
+            if (locale != null)
+            {
+                LocalizationSettings.SelectedLocale = locale;
+                PlayerPrefs.SetString("SelectedLocale", localeCodes[index]);
+                PlayerPrefs.Save();
+            }
+        }
     }
 
     private void OnExitButtonClicked()

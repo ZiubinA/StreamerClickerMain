@@ -7,7 +7,7 @@ public class DailyRewardManager : MonoBehaviour
     public GameObject rewardPanel;
     public TextMeshProUGUI rewardText;
     public CoinManager coinManager; // Привязать в инспекторе
-    public int rewardAmount = 100;
+    public float rewardAmount = 100;
 
     private void Start()
     {
@@ -40,7 +40,7 @@ public class DailyRewardManager : MonoBehaviour
         PlayerPrefs.SetString("LastDailyReward", DateTime.Now.ToString());
         PlayerPrefs.Save();
 
-        coinManager.AddCoins(rewardAmount); // Начисляем награду
+        coinManager.AddCoins(rewardAmount);
 
         rewardPanel.SetActive(false);
     }
