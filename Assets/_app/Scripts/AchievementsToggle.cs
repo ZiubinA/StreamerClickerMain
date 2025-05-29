@@ -9,4 +9,9 @@ public class AchievementsToggle : MonoBehaviour
         bool isActive = achievementsPanel.activeSelf;
         achievementsPanel.SetActive(!isActive);
     }
+
+    public void HideAchievements()
+    {
+        achievementsPanel.SetActive(false);
+    }
 }

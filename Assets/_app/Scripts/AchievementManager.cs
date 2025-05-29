@@ -41,9 +41,9 @@ public class AchievementManager : MonoBehaviour
     {
         achievements = new List<Achievement>
         {
-            new Achievement { id = "coins_1000", title = "Collect 1000 coins", description = "Get 1000 coins", reward = 100 },
-            new Achievement { id = "upgrade_camera", title = "Camera 3 lvl.", description = "Upgrade your camera to level 3", reward = 500 },
-            new Achievement { id = "login_5", title = "Five launches", description = "Enter the game 5 times", reward = 250 }
+            new Achievement { id = "coins_1000", title = "Collect 1000 coins", reward = 100 },
+            new Achievement { id = "upgrade_camera", title = "Camera 3 lvl.", reward = 500 },
+            new Achievement { id = "login_5", title = "Five launches", reward = 250 }
         };
     }
 
